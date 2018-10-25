@@ -1,1 +1,39 @@
-'' 
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Philosopher's Hangman</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Meddon" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <script src="game.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Philospher's Hangman</h1>
+        <hr />
+        <h2>Coniecto ergo sum</h2>
+    </header>
+    <main>
+        <p>Press any key to begin.</p>
+        <br />
+        <p><em>Wins:</em> <span id="wins">0</span> | <em>Losses:</em> <span id="losses">0</span></p>
+        <br />
+        <section class="figure-box clearfix">
+            <img id="stick-figure" src="assets/images/stick-figure.svg" alt="You gotta think deep thoughts, man." width="200px" />
+            <div class="bubble-box">
+                <p class="bubble-text">Far out, man.</p>
+                <img id="speach-bubble" src="assets/images/speach-bubble.svg" width="400px" />
+            </div>
+        </section>
+        <p id="answer">Answer goes here</p>
+        <h2>Guesses</h2>
+        <p id="guesses">Guesses go here</p>
+    </main>
+</body>
+
+</html>

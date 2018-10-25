@@ -1,1 +1,85 @@
-'' 
+/*General body styles*/
+html, body {
+    height: auto;
+    width: 100vw;
+    position: relative;
+    font-size: 18px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #2D2D2A;
+    background: #E6DBD0;
+}
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+/*End general styles*/
+
+/*Heading styles*/
+h1, h2, p {
+    text-align: center;
+    
+}
+h1 {
+    font-family: 'Meddon', cursive;
+    color: #684551;
+}
+h1 {
+    font-size: 4rem;
+    margin: 3rem 0 0.2rem 0;
+}
+h2 {
+   color: #873D48;
+   font-variant: small-caps;
+   font-size: 2rem;
+   letter-spacing: 0.1em;
+}
+/*End heading styles*/
+
+/*Header section styles*/
+header {
+    margin-bottom: 30px;
+}
+hr {
+    width: 70%;
+    border: 0;
+    height: 2px;
+    margin: -0.3em auto 0 auto;
+    background-image: linear-gradient(to right, transparent, rgba(60, 7, 18, 0.3), transparent);
+}
+/*End header styles*/
+
+/*Main specific styles*/
+main {
+    width: 850px;
+    margin: 0 auto;
+}
+.figure-box {
+    width: 75%;
+    margin: 10px auto;
+}
+#stick-figure{
+    float: left;
+    
+}
+.bubble-box {
+    display: inline-block;
+    position: relative;
+}
+.bubble-text {
+    position: absolute;
+    top: 70px;
+    left: 130px;
+}
+#speach-bubble {
+    float: right;
+}
+p{
+    line-height: 2em;
+    margin: 10px 0;
+}
+em {
+    font-weight: 700;
+    color: #873D48;
+}
+/*End main styles*/
