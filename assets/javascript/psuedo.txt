@@ -1,0 +1,27 @@
+/*********************************************
+****PHILOSOPHER'S HANGMAN****
+
+ORDER OF EVENTS:
+
+-Store a list of possible answers in an array
+-Randomly select one as the actual answer
+-When a key is pressed:
+    -Iterate letter counter
+    -Check if the key is in the answer.
+    -If yes:
+        -Add key to the word
+        -Add key to guessed
+        -If word is complete:
+            -You win! Add 1 to win and replay
+    -If no:
+        -Add key to guessed
+        -If counter is 10:
+            -You loose. Add 1 to losses and replay
+
+VARIABLES NEEDED:
+-Possible answers: array
+-Current key: string
+-Win count/Loss count: int
+-Letter count: int
+-Did you win?: bool
+**********************************************/
