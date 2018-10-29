@@ -10,22 +10,22 @@ var possibleAnswers = ['plato', 'aristotle', 'epicurus', 'diogenes', 'cicero', '
  'judith butler', 'noam chomsky', 'michel foucault', 'ayn rand', 'derek parfit', 'karl popper',
   'robert nozick'];//May update this to an object with answers and clues?
 
-function getRandom(array) {//Helper function for picking a random array component
+/*Helper functions:*************************************************************/
+//Helper function for picking a random array component
+function getRandom(array) {
     return array[Math.floor(Math.random() * array.length)];
 }
-
-function removeWhitespace(string) {//Helper function to trim whitespace
+//Helper function to trim whitespace
+function removeWhitespace(string) {
     return string.replace(/\s+/g, '');
 }
-
-function censor(answer) {//Replaces letters in answer with dashes to hide answer
-    return answer.replace(/[a-z]/g , '-');
-}
-
+//Set a letter at a specific index of a string
 function setLetterAt(string, index, letter) {
     return string.substr(0, index) + letter + string.substr(index + 1);
 }
+/*********************************************************End helper functions*/
 
+/*Define the Hangman object prototype with starter values**********************/
 function Hangman(answer, wins, losses) {
     this.answer = answer;
     this.wins = wins;
@@ -35,30 +35,35 @@ function Hangman(answer, wins, losses) {
     this.letter = '';
     this.guess = '';
 }
-
+/*Add methods:*****************************************************************/
+//Set the initial guess to a correctly formatted row of dashes:
 Hangman.prototype.setGuess = function() {
-    return censor(this.answer);
+    return this.answer.replace(/[a-z]/g , '-');
 };
-
+//Check if you've won:
 Hangman.prototype.checkWin = function() {
-    
     return ((removeWhitespace(this.answer) === removeWhitespace(this.guess)) ? true : false);
 };
-
+//Check if you've lost:
 Hangman.prototype.checkLoss = function() {
     return((this.turns >= this.maxTurns) ? true : false);
 };
-
+/*Update the guess. If your letter is in the answer and hasn't already been guessed,
+add it at the correct index.*/
 Hangman.prototype.updateGuess = function() {
-    for(let i = 0; i < this.answer.length; i++) {
-        if((this.letter === this.answer[i]) && (this.guess[i] === '-')) {
-            let newGuess = this.guess;
-            newGuess = setLetterAt(newGuess, i, this.letter);
-            return newGuess;
+    if(this.answer.indexOf(this.letter) > -1){
+        let newGuess = this.guess;
+        for(let i = 0; i < this.answer.length; i++) {
+            if(this.letter === this.answer[i]){
+                
+                newGuess = setLetterAt(newGuess, i, this.letter);
+            }
         }
+        return newGuess;
     }
     return this.guess;
 };
+/*********************************************End Hangman oject construction*/
 
 var hangGame = new Hangman(getRandom(possibleAnswers), 0, 0);
 hangGame.guess = hangGame.setGuess();
