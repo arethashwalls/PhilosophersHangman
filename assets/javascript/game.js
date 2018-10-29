@@ -38,7 +38,7 @@ function Hangman(answer, wins, losses) {
 
 Hangman.prototype.setGuess = function() {
     return censor(this.answer);
-}
+};
 
 Hangman.prototype.checkWin = function() {
     
@@ -47,30 +47,32 @@ Hangman.prototype.checkWin = function() {
 
 Hangman.prototype.checkLoss = function() {
     return (this.turns >= this.maxTurns) ? true : false;
-}
+};
 
 Hangman.prototype.updateGuess = function() {
     for(let i = 0; i < this.answer.length; i++) {
         if((this.letter === this.answer[i]) && (this.guess[i] === '-')) {
             let newGuess = this.guess;
-            console.log('hi');
             newGuess = setLetterAt(newGuess, i, this.letter);
             return newGuess;
         }
     }
     return this.guess;
-}
+};
 
 var hangGame = new Hangman(getRandom(possibleAnswers), 0, 0);
 hangGame.guess = hangGame.setGuess();
 console.log(hangGame);
 
 document.addEventListener('keydown', (event) => {
-    hangGame.letter = event.key.toLowerCase;
+    hangGame.letter = event.key.toLowerCase();
     hangGame.turns++;
     hangGame.guess = hangGame.updateGuess();
     console.log(hangGame.guess);
     if(hangGame.checkWin()) {
-        console.log("you won!")
+        hangGame.wins++;
+        hangGame = new Hangman(getRandom(possibleAnswers), 0, 0);
+        hangGame.guess = hangGame.setGuess();
+        console.log(hangGame);
     }
 });
