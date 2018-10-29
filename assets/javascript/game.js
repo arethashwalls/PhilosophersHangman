@@ -18,28 +18,59 @@ function removeWhitespace(string) {//Helper function to trim whitespace
     return string.replace(/\s+/g, '');
 }
 
-function checkWin(answer, guess) {//Check current guess against correct answer
-    if(removeWhitespace(answer) === removeWhitespace(guess)) {//Guess should already be lowercase!
-        return true;
-    } else {
-        return false;
-    }
-}
-function checkLose(lettersAllowed, lettersGuessed) {
-    return (lettersAllowed === lettersGuessed ? true : false);
+function censor(answer) {//Replaces letters in answer with dashes to hide answer
+    return answer.replace(/[a-z]/g , '-');
 }
 
-function Hangman(answer) {
+function setLetterAt(string, index, letter) {
+    return string.substr(0, index) + letter + string.substr(index + 1);
+}
+
+function Hangman(answer, wins, losses) {
     this.answer = answer;
-    this.wins = 0;
-    this.losses = 0;
-    this.lettersAllowed = removeWhitespace(this.answer).length;
-    this.lettersGuessed = 0;
-    this.currentLetter = '';
-    this.currentGuess = '';
-    this.checkWin = checkWin(this.answer, this.currentGuess);
+    this.wins = wins;
+    this.losses = losses;
+    this.maxTurns = removeWhitespace(answer).length + 3;
+    this.turns = 0;
+    this.letter = '';
+    this.guess = '';
 }
 
-var newHangman = new Hangman(getRandom(possibleAnswers));
+Hangman.prototype.setGuess = function() {
+    return censor(this.answer);
+}
 
+Hangman.prototype.checkWin = function() {
+    
+    return ((removeWhitespace(this.answer) === removeWhitespace(this.guess)) ? true : false);
+};
 
+Hangman.prototype.checkLoss = function() {
+    return (this.turns >= this.maxTurns) ? true : false;
+}
+
+Hangman.prototype.updateGuess = function() {
+    for(let i = 0; i < this.answer.length; i++) {
+        if((this.letter === this.answer[i]) && (this.guess[i] === '-')) {
+            let newGuess = this.guess;
+            console.log('hi');
+            newGuess = setLetterAt(newGuess, i, this.letter);
+            return newGuess;
+        }
+    }
+    return this.guess;
+}
+
+var hangGame = new Hangman(getRandom(possibleAnswers), 0, 0);
+hangGame.guess = hangGame.setGuess();
+console.log(hangGame);
+
+document.addEventListener('keydown', (event) => {
+    hangGame.letter = event.key.toLowerCase;
+    hangGame.turns++;
+    hangGame.guess = hangGame.updateGuess();
+    console.log(hangGame.guess);
+    if(hangGame.checkWin()) {
+        console.log("you won!")
+    }
+});
