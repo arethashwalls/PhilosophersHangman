@@ -46,7 +46,7 @@ Hangman.prototype.checkWin = function() {
 };
 
 Hangman.prototype.checkLoss = function() {
-    return (this.turns >= this.maxTurns) ? true : false;
+    return((this.turns >= this.maxTurns) ? true : false);
 };
 
 Hangman.prototype.updateGuess = function() {
@@ -71,8 +71,14 @@ document.addEventListener('keydown', (event) => {
     console.log(hangGame.guess);
     if(hangGame.checkWin()) {
         hangGame.wins++;
-        hangGame = new Hangman(getRandom(possibleAnswers), 0, 0);
+        hangGame = new Hangman(getRandom(possibleAnswers), hangGame.wins, hangGame.losses);
+        hangGame.guess = hangGame.setGuess();
+        console.log(hangGame);
+    } else if(hangGame.checkLoss()) {
+        hangGame.losses++;
+        hangGame = new Hangman(getRandom(possibleAnswers), hangGame.wins, hangGame.losses);
         hangGame.guess = hangGame.setGuess();
         console.log(hangGame);
     }
+
 });
