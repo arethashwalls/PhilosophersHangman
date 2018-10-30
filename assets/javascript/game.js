@@ -134,7 +134,6 @@ function Hangman(answer, wins, losses) {
     this.clue = answer.clue;
     this.wins = wins;
     this.losses = losses;
-    this.turns = 0;
     this.badGuesses = 0;
     this.letter = '';
     this.guess = '';
@@ -169,19 +168,21 @@ Hangman.prototype.updateGuess = function () {
     this.badGuesses++;
     return this.guess;
 };
-Hangman.prototype.updateDOM = function() {
+Hangman.prototype.updateDOM = function(bubbleText) {
     showWins.textContent = this.wins;
     showLosses.textContent = this.losses;
     showGuess.textContent = this.guess.toUpperCase();
     showAllLetters.textContent = this.allLetters.toUpperCase();
+    showClue.textContent = bubbleText;
+    console.log(document.getElementById('bubble-text').clientHeight)
+    showClue.setAttribute('style', 'position: absolute;top: ' + (75 - document.getElementById('bubble-text').clientHeight/2) + 'px;left: 110px; width: 250px');
 }
 
 /*Set up starting conditions:****************************************************/
 var hangGame = new Hangman(getRandom(possibleAnswers), 0, 0);
 console.log(hangGame.answer);
 hangGame.guess = hangGame.setGuess();
-showGuess.innerText = hangGame.guess;
-showClue.innerText = hangGame.quote;
+hangGame.updateDOM(hangGame.quote);
 /*Core game actions:*************************************************************/
 document.addEventListener('keydown', (event) => {
     if (/^[a-zA-Z]$/.test(event.key)) {//Ignores all non-letters
@@ -190,22 +191,32 @@ document.addEventListener('keydown', (event) => {
         if(hangGame.allLetters.indexOf(hangGame.letter.toUpperCase()) === -1 ) {
             hangGame.allLetters += hangGame.letter.toUpperCase() + " ";
         }
-        hangGame.turns++;
         hangGame.guess = hangGame.updateGuess();
-        hangGame.updateDOM();
         if (hangGame.checkWin()) {
             //On a win, increment wins, remake the object preserving wins and losses.
             hangGame.wins++;
-            hangGame = new Hangman(getRandom(possibleAnswers), hangGame.wins, hangGame.losses);
-            hangGame.guess = hangGame.setGuess();
-            hangGame.updateDOM();
+            hangGame.updateDOM(hangGame.answer);
+            window.setTimeout(function() {
+                hangGame = new Hangman(getRandom(possibleAnswers), hangGame.wins, hangGame.losses);
+                hangGame.badGuesses = 0;
+                hangGame.guess = hangGame.setGuess();
+                hangGame.updateDOM(hangGame.quote);
+            }, 2000);
         } else if (hangGame.checkLoss()) {
             hangGame.losses++;
             //On a loss, increment losses, remake the object preserving wins and losses.
-            hangGame = new Hangman(getRandom(possibleAnswers), hangGame.wins, hangGame.losses);
-            hangGame.guess = hangGame.setGuess();
-            hangGame.updateDOM();
-        } else if (hangGame.badGuesses) {
+            hangGame.updateDOM('Too bad...\nBy the way, it was ' + hangGame.answer);
+            window.setTimeout(function() {
+                hangGame = new Hangman(getRandom(possibleAnswers), hangGame.wins, hangGame.losses);
+                hangGame.badGuesses = 0;
+                hangGame.guess = hangGame.setGuess();
+                hangGame.updateDOM(hangGame.quote);
+            }, 2000);
+        } else if (hangGame.badGuesses >= 5) {
+            hangGame.updateDOM(hangGame.clue);
+            console.log('hi')
+        } else {
+            hangGame.updateDOM(hangGame.quote);
         }
     }
 });

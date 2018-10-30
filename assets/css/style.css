@@ -68,8 +68,8 @@ main {
 }
 .bubble-text {
     position: absolute;
-    top: 70px;
-    left: 130px;
+    top: 50px;
+    left: 100px;
 }
 #speach-bubble {
     float: right;
