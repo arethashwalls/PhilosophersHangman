@@ -109,7 +109,7 @@ var possibleAnswers = [
 /*DOM variables*****************************************************************/
 var showWins = document.getElementById('wins'),
     showLosses = document.getElementById('losses'),
-    showHint = document.getElementById('bubble-text'),
+    showClue = document.getElementById('bubble-text'),
     showGuess = document.getElementById('guess'),
     showAllLetters = document.getElementById('all-letters');
 
@@ -132,8 +132,8 @@ function Hangman(answer, wins, losses) {
     this.answer = answer.name;
     this.wins = wins;
     this.losses = losses;
-    this.maxTurns = removeWhitespace(answer.name).length + 3;
     this.turns = 0;
+    this.badGuesses = 0;
     this.letter = '';
     this.guess = '';
     this.allLetters = '';
@@ -149,7 +149,7 @@ Hangman.prototype.checkWin = function () {
 };
 //Check if you've lost:
 Hangman.prototype.checkLoss = function () {
-    return ((this.turns >= this.maxTurns) ? true : false);
+    return ((this.badGuesses > 6) ? true : false);
 };
 /*Update the guess. If your letter is in the answer and hasn't already been guessed,
 add it at the correct index.*/
@@ -164,6 +164,7 @@ Hangman.prototype.updateGuess = function () {
         }
         return newGuess;
     }
+    this.badGuesses++;
     return this.guess;
 };
 Hangman.prototype.updateDOM = function() {
@@ -177,10 +178,11 @@ Hangman.prototype.updateDOM = function() {
 var hangGame = new Hangman(getRandom(possibleAnswers), 0, 0);
 hangGame.guess = hangGame.setGuess();
 showGuess.innerText = hangGame.guess;
+showClue.innerText = hangGame.answer.quote;
 /*Core game actions:*************************************************************/
 document.addEventListener('keydown', (event) => {
     if (/^[a-zA-Z]$/.test(event.key)) {//Ignores all non-letters
-        console.log(hangGame.answer);
+        console.log(hangGame);
         hangGame.letter = event.key.toLowerCase();
         hangGame.allLetters += hangGame.letter.toUpperCase() + " ";
         hangGame.turns++;
@@ -198,6 +200,7 @@ document.addEventListener('keydown', (event) => {
             hangGame = new Hangman(getRandom(possibleAnswers), hangGame.wins, hangGame.losses);
             hangGame.guess = hangGame.setGuess();
             hangGame.updateDOM();
+        } else if (hangGame.badGuesses) {
         }
     }
 });
