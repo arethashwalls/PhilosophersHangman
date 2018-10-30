@@ -130,6 +130,8 @@ function setLetterAt(string, index, letter) {
 /*Define the Hangman object prototype with starter values**********************/
 function Hangman(answer, wins, losses) {
     this.answer = answer.name;
+    this.quote = answer.quote;
+    this.clue = answer.clue;
     this.wins = wins;
     this.losses = losses;
     this.turns = 0;
@@ -176,15 +178,18 @@ Hangman.prototype.updateDOM = function() {
 
 /*Set up starting conditions:****************************************************/
 var hangGame = new Hangman(getRandom(possibleAnswers), 0, 0);
+console.log(hangGame.answer);
 hangGame.guess = hangGame.setGuess();
 showGuess.innerText = hangGame.guess;
-showClue.innerText = hangGame.answer.quote;
+showClue.innerText = hangGame.quote;
 /*Core game actions:*************************************************************/
 document.addEventListener('keydown', (event) => {
     if (/^[a-zA-Z]$/.test(event.key)) {//Ignores all non-letters
         console.log(hangGame);
         hangGame.letter = event.key.toLowerCase();
-        hangGame.allLetters += hangGame.letter.toUpperCase() + " ";
+        if(hangGame.allLetters.indexOf(hangGame.letter.toUpperCase()) === -1 ) {
+            hangGame.allLetters += hangGame.letter.toUpperCase() + " ";
+        }
         hangGame.turns++;
         hangGame.guess = hangGame.updateGuess();
         hangGame.updateDOM();
