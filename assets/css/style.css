@@ -7,6 +7,9 @@ html, body {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: #2D2D2A;
     background: #E6DBD0;
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
 }
 .clearfix:after {
     content: "";
@@ -56,7 +59,9 @@ main {
 }
 .figure-box {
     width: 75%;
+    height: auto;
     margin: 10px auto;
+    overflow: auto;
 }
 #stick-figure{
     float: left;
@@ -68,8 +73,12 @@ main {
 }
 .bubble-text {
     position: absolute;
+    width: 215px;
+    display: block;
     top: 50px;
-    left: 100px;
+    left: 0px;
+    right: 0;
+    margin: auto;
 }
 #speach-bubble {
     float: right;
@@ -78,6 +87,11 @@ p{
     line-height: 2em;
     margin: 10px 0;
 }
+
+.game-text {
+    font-size: 2em;
+}
+
 em {
     font-weight: 700;
     color: #873D48;
