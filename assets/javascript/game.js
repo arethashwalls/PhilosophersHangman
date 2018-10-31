@@ -103,7 +103,7 @@ var possibleAnswers = [
         quote: 'The most defenseless tenderness and the bloodiest of powers have a similar need of confession.',
         clue: 'You can thank him for popularizing the phrase "social construct."',},   
     {name: 'Ayn Rand',
-        quote: 'Man\'s mind is his basic tool of survival. Life is given to him; survival is not',
+        quote: 'Man\'s mind is his basic tool of survival. Life is given to him; survival is not.',
         clue: 'Her beliefs were heavily influenced by her youth in Soviet Russia.',},];
 
 /*DOM variables*****************************************************************/
