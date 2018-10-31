@@ -1,7 +1,7 @@
 //An array containing all possible answers:
 var possibleAnswers = [
     {name: 'plato', 
-        quote: 'the madness of love is the greatest of heaven\'s blessings',
+        quote: 'The madness of love is the greatest of heaven\'s blessings',
         clue: '"We\'re just friends! My feelings are purely _____nic."'},
     {name: 'aristotle',
         quote: 'Piety requires us to honor truth above our friends.',
@@ -123,8 +123,14 @@ function removeWhitespace(string) {
     return string.replace(/\s+/g, '');
 }
 //Set a letter at a specific index of a string
-function setLetterAt(string, index, letter) {
-    return string.substr(0, index) + letter + string.substr(index + 1);
+function setLetterAt(str, index, letter) {
+    return str.substr(0, index) + letter + str.substr(index + 1);
+}
+//Set a string to title case for names
+function titleCase(str) {
+    return str.replace(/\w\S*/g, function(word){
+        return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
+    })
 }
 
 /*Define the Hangman object prototype with starter values**********************/
@@ -174,8 +180,8 @@ Hangman.prototype.updateDOM = function(bubbleText) {
     showGuess.textContent = this.guess.toUpperCase();
     showAllLetters.textContent = this.allLetters.toUpperCase();
     showClue.textContent = bubbleText;
-    console.log(document.getElementById('bubble-text').clientHeight)
-    showClue.setAttribute('style', 'position: absolute;top: ' + (75 - document.getElementById('bubble-text').clientHeight/2) + 'px;left: 110px; width: 250px');
+    showClue.setAttribute('style', 'position: absolute;top: 40px;left: 110px; width: 250px');
+ 
 }
 
 /*Set up starting conditions:****************************************************/
@@ -195,7 +201,7 @@ document.addEventListener('keydown', (event) => {
         if (hangGame.checkWin()) {
             //On a win, increment wins, remake the object preserving wins and losses.
             hangGame.wins++;
-            hangGame.updateDOM(hangGame.answer);
+            hangGame.updateDOM(titleCase(hangGame.answer));
             window.setTimeout(function() {
                 hangGame = new Hangman(getRandom(possibleAnswers), hangGame.wins, hangGame.losses);
                 hangGame.badGuesses = 0;
@@ -205,7 +211,7 @@ document.addEventListener('keydown', (event) => {
         } else if (hangGame.checkLoss()) {
             hangGame.losses++;
             //On a loss, increment losses, remake the object preserving wins and losses.
-            hangGame.updateDOM('Too bad...\nBy the way, it was ' + hangGame.answer);
+            hangGame.updateDOM('Too bad...\nBy the way, it was ' + titleCase(hangGame.answer));
             window.setTimeout(function() {
                 hangGame = new Hangman(getRandom(possibleAnswers), hangGame.wins, hangGame.losses);
                 hangGame.badGuesses = 0;
