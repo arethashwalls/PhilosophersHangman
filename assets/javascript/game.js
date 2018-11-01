@@ -321,7 +321,7 @@ document.addEventListener('keydown', (event) => {
         if (hangGame.checkWin()) {
             //On a win, increment wins, remake the object preserving wins and losses.
             hangGame.wins++;
-            hangGame.updateDOM("Ah, yes, I was thinking of " + hangGame.philosopher.name + ".");
+            hangGame.updateDOM("Ah, yes, glad you're familiar with " + hangGame.philosopher.name + ".");
             window.setTimeout(function () {
                 hangGame = new Hangman(hangGame.philosopher.name, hangGame.wins, hangGame.losses);
                 hangGame.setupNewGame();
