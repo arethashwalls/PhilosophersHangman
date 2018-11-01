@@ -204,6 +204,7 @@ var possiblePhilosophers = [
 /*DOM variables*****************************************************************/
 var showWins = document.getElementById('wins'),
     showLosses = document.getElementById('losses'),
+    showRemainingGuesses = document.getElementById('guesses-remaining');
     showClue = document.getElementById('bubble-text'),
     showGuess = document.getElementById('guess'),
     showAllLetters = document.getElementById('all-letters'),
@@ -270,6 +271,7 @@ Hangman.prototype.updateGuess = function () {
 Hangman.prototype.updateDOM = function (bubbleText) {
     showWins.textContent = this.wins;
     showLosses.textContent = this.losses;
+    showRemainingGuesses.textContent = 7 - this.badGuesses;
     showGuess.textContent = this.guess.toUpperCase();
     showAllLetters.textContent = this.allLetters.toUpperCase();
     //Using innerText allows CSS to affect bubbleText, though textContent is usually more appropriate
