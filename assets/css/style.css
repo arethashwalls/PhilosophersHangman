@@ -2,6 +2,7 @@
 html, body {
     height: auto;
     width: 100vw;
+    overflow: auto;
     position: relative;
     font-size: 18px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -54,11 +55,11 @@ hr {
 
 /*Main specific styles*/
 main {
-    width: 850px;
+    width: 80%;
     margin: 0 auto;
 }
 .figure-box {
-    width: 75%;
+    width: 40%;
     height: auto;
     margin: 10px auto;
     overflow: auto;
@@ -71,13 +72,13 @@ main {
     display: inline-block;
     position: relative;
 }
-.bubble-text {
+#bubble-text {
     position: absolute;
-    width: 215px;
-    display: block;
+    width: 250px;
+    display:block;
     top: 50px;
-    left: 0px;
-    right: 0;
+    left: 70px;
+    right:0px;
     margin: auto;
 }
 #speach-bubble {
@@ -96,4 +97,55 @@ em {
     font-weight: 700;
     color: #873D48;
 }
+.guess-section {
+    width: 100%;
+}
 /*End main styles*/
+
+/*Responsive styles:*/
+@media screen and (max-width: 1700px) {
+    .figure-box {
+        width: 60%;
+    }
+}
+@media screen and (max-width: 1250px) {
+    .figure-box {
+        width: 70%;
+    }
+}
+@media screen and (max-width: 1075px) {
+    .figure-box {
+        width: 80%;
+    }
+}
+@media screen and (max-width: 1000px){
+    #stick-figure {
+        float: none;
+        margin: auto;
+        display: block;
+    }
+    #speach-bubble {
+        display: none;
+    }
+    #bubble-text {
+        position: static;
+        width: 100%;
+
+        font-style: italic;
+    }
+    #bubble-text::before, #bubble-text::after {
+        content: '"';
+    }
+}
+
+@media screen and (max-width: 550px) {
+    h1 {
+        font-size: 2rem;
+    } 
+    h2 {
+        font-size: 1rem;
+    }
+   
+}
+
+/*End responsive styles*/

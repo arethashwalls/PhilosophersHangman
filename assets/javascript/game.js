@@ -174,9 +174,8 @@ Hangman.prototype.updateDOM = function(bubbleText) {
     showLosses.textContent = this.losses;
     showGuess.textContent = this.guess.toUpperCase();
     showAllLetters.textContent = this.allLetters.toUpperCase();
-    showClue.textContent = bubbleText;
-    //The text bubble needs to be restyled each time it loads. Not happy about this...
-    showClue.setAttribute('style', 'position: absolute;width: 250px;display:block;top: 50px;left: 70px;right:0px;margin: auto;');
+    //Using innerText allows CSS to affect bubbleText
+    showClue.innerText = bubbleText;
     //Set image to change based on the number of bad guesses
     if(this.badGuesses > 6) {
         showStickman.setAttribute('src', 'assets/images/stick-figure3.svg');
