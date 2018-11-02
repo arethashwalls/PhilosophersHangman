@@ -228,7 +228,6 @@ function setLetterAt(str, index, letter) {
 function Hangman(previousName, wins, losses) {
     this.philosopher = getRandom(possiblePhilosophers);
     while(this.philosopher.name.toLowerCase() === previousName){
-        console.log('hi');
         this.philosopher = getRandom(possiblePhilosophers);
     }
     this.wins = wins;
