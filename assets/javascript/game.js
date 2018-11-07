@@ -263,7 +263,11 @@ Hangman.prototype.updateGuess = function () {
         return newGuess;
     }
     //If your guess isn't in the name, increment your bad guess count
-    this.badGuesses++;
+    if(this.allLetters.indexOf(this.letter.toUpperCase()) === -1) {
+        console.log('hiii');
+        this.badGuesses++;
+    }
+    //this.badGuesses++;
     return this.guess;
 };
 //This function wraps all DOM updates together. 
@@ -317,8 +321,9 @@ hangGame.setupNewGame();
 document.addEventListener('keydown', (event) => {
     if (/^[a-zA-Z]$/.test(event.key)) {//Ignores all non-letters
         hangGame.letter = event.key.toLowerCase();
-        hangGame.allLetters = hangGame.updateAllLetter();
         hangGame.guess = hangGame.updateGuess();
+        hangGame.allLetters = hangGame.updateAllLetter();
+        
         if (hangGame.checkWin()) {
             //On a win, increment wins, remake the object preserving wins and losses.
             hangGame.wins++;
