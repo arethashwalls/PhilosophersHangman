@@ -1,4 +1,4 @@
-# Word-Guess-Game
+# Philosopher's Hangman
 
 A game of hangman featuring a gaggle of dead over-thinkers.
 
